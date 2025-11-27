@@ -18,9 +18,53 @@ public class KeywordsDetector {
         detectAndPrint(sentences, keywords);
     }
 
+    /** Returns the lowercase version of the given string. */
+    public static String lowerCase(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if ((ch >= 'A') && (ch <= 'Z')) {
+                ch = (char) (ch - 'A' + 'a');
+                str = str.substring(0, i) + ch + str.substring(i+1);
+            }
+        }
+        return str;
+    }
+
+    /** If str1 contains str2, returns true; otherwise returns false. */
+    public static boolean contains(String str1, String str2) {
+        if (str1.length() < str2.length()) return false;
+        for (int i = 0; i < str1.length() - str2.length() + 1; i++) {
+            if (str1.charAt(i) == str2.charAt(0)) {
+                boolean isMatch = true;
+                for (int j = 0; j < str2.length(); j++) {
+                    if (str1.charAt(i + j) != str2.charAt(j)) {
+                        isMatch = false;
+                    }
+                }
+                if (isMatch == true) return true;
+            }
+        }
+        return false;
+    }
+
     // Iterates through all the sentences.
     // If a sentence contains one or more of the kewords, prints it.
     public static void detectAndPrint(String[] sentences, String[] keywords) {
-        // Replace this comment with your code
+        String[] sentencesLowerCase = new String[sentences.length];
+        for (int i = 0; i < sentences.length; i++) {
+            sentencesLowerCase[i] = lowerCase(sentences[i]);
+        }
+        String[] keywordsLowerCase = new String[keywords.length];
+        for (int i = 0; i < keywords.length; i++) {
+            keywordsLowerCase[i] = lowerCase(keywords[i]);
+        }
+        for (int j = 0; j < sentencesLowerCase.length; j++) {
+            for (int k = 0; k < keywordsLowerCase.length; k++) {
+                if (contains(sentencesLowerCase[j], keywordsLowerCase[k])) {
+                    System.out.println(sentences[j]);
+                    break;
+                }
+            }
+        }
     }
 }

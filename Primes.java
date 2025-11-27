@@ -22,7 +22,7 @@ public class Primes {
             }
         }
         System.out.print("There are " + count + " primes between 2 and " + args[0]);
-        int percent = (int) (count / 100.0);
+        int percent = (int) ((count / Double.parseDouble(args[0])) * 100);
         System.out.print(" (" + percent + "% are primes)");
     }
 }

@@ -5,18 +5,15 @@ public class Primes {
         for (int i = 2; i < arrLength; i++) {
             isPrime[i] = true;
         }
-        int currentMultiple = 2;
-        int currentIndex = 3;
-        while (currentMultiple != (arrLength - 1)) {
-            while (currentIndex != (arrLength - 1)) {
-                if (currentIndex % currentMultiple == 0) {
-                    isPrime[currentIndex] = false;
+        for (int i = 2; i < arrLength; i++) {
+            if (isPrime[i]) {
+                for (int j = i * 2; j < arrLength; j++) {
+                    if (j % i == 0) isPrime[j] = false;
                 }
-                currentIndex++;
-            } 
-            while (isPrime[currentMultiple] != true) currentMultiple++;
+            }
         }
-        System.out.println( "Prime numbers up to " + args[0] + ":");
+
+        System.out.println("Prime numbers up to " + args[0] + ":");
         int count = 0;
         for (int i = 0; i < isPrime.length; i++) {
             if (isPrime[i] == true) {
@@ -26,6 +23,6 @@ public class Primes {
         }
         System.out.print("There are " + count + " primes between 2 and " + args[0]);
         int percent = (int) (count / 100.0);
-        System.out.print(" (" + percent + " are primes)");
+        System.out.print(" (" + percent + "% are primes)");
     }
 }
